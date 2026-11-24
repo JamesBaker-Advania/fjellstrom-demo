@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fjellstrøm CRM – kundkort</title>
+<meta name="robots" content="noindex">
+<style>
+  :root { --green:#0B5D4B; --mint:#e6f2ee; --ink:#1c2b27; --muted:#5f6f6a; --line:#dde5e2; --bg:#f6f8f7; --warn:#b4531a; --ok:#1d7a4f; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; font-size:13px; color:var(--ink); background:var(--bg); line-height:1.45; }
+  header { background:var(--green); color:#fff; padding:8px 12px; display:flex; justify-content:space-between; align-items:center; }
+  header b { font-size:14px; }
+  header span { font-size:12px; opacity:.85; }
+  main { padding:10px; display:grid; gap:10px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:8px; padding:10px 12px; }
+  .card h2 { margin:0 0 8px; font-size:11px; letter-spacing:.6px; text-transform:uppercase; color:var(--muted); }
+  .who { display:flex; gap:10px; align-items:center; }
+  .avatar { width:38px; height:38px; border-radius:50%; background:var(--mint); color:var(--green); display:grid; place-items:center; font-weight:700; font-size:16px; flex:none; }
+  .who .name { font-size:16px; font-weight:700; }
+  .tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+  .tag { background:var(--mint); color:var(--green); border-radius:999px; padding:1px 8px; font-size:11px; font-weight:600; }
+  .tag.warn { background:#fdecdf; color:var(--warn); }
+  dl { margin:0; display:grid; grid-template-columns:auto 1fr; gap:4px 12px; }
+  dt { color:var(--muted); }
+  dd { margin:0; font-weight:600; font-variant-numeric:tabular-nums; }
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .timeline { list-style:none; margin:0; padding:0; }
+  .timeline li { padding:5px 0 5px 14px; border-left:2px solid var(--line); position:relative; }
+  .timeline li::before { content:""; position:absolute; left:-5px; top:10px; width:8px; height:8px; border-radius:50%; background:var(--green); }
+  .timeline .t { color:var(--muted); font-size:11px; }
+  .greet { background:var(--mint); border-radius:6px; padding:8px 10px; margin:0 0 8px; }
+  button { border:1px solid var(--green); background:var(--green); color:#fff; border-radius:6px; padding:5px 10px; font-size:12px; cursor:pointer; }
+  table { width:100%; border-collapse:collapse; }
+  th, td { text-align:left; padding:4px 2px; border-bottom:1px solid var(--line); }
+  th { color:var(--muted); font-weight:600; }
+  td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+  .muted { color:var(--muted); }
+  @media (max-width:520px) { .two { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header><b>Fjellstrøm CRM</b><span>Demo, fiktiva uppgifter</span></header>
+<main>
+  <section class="card">
+    <div class="who">
+      <div class="avatar" id="initial">I</div>
+      <div>
+        <div class="name" id="fullName">Ingrid Haugen</div>
+        <div class="muted">Kundnummer <b id="custId">FS-100234</b> · Villa, Drammen · Kund sedan 2019</div>
+        <div class="tags"><span class="tag">Inloggad via Min side</span><span class="tag">Spotpris</span><span class="tag warn" id="reason">Hög faktura / byte till fastpris</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Föreslagen hälsning</h2>
+    <p class="greet" id="greeting"></p>
+    <button type="button" id="copyGreeting">Kopiera</button> <span class="muted" id="copied"></span>
+  </section>
+
+  <div class="two">
+    <section class="card">
+      <h2>Avtal och förbrukning</h2>
+      <dl>
+        <dt>Avtal</dt><dd>Spotpris</dd>
+        <dt>Årsförbrukning</dt><dd>ca 16 000 kWh</dd>
+        <dt>Okt 2026</dt><dd>1 449 kWh · 148 öre</dd>
+        <dt>Sep 2026</dt><dd>1 050 kWh · 96 öre</dd>
+        <dt>Förändring</dt><dd>+38 % förbrukning</dd>
+      </dl>
+    </section>
+    <section class="card">
+      <h2>Faktura och betalplan</h2>
+      <dl>
+        <dt>Faktura</dt><dd id="invoice">FS-2026-10-100234</dd>
+        <dt>Belopp</dt><dd>3 480 kr (sep: 1 720 kr)</dd>
+        <dt>Status</dt><dd id="planStatus">Delbetalning skapad</dd>
+        <dt>Betalplan</dt><dd id="plan">PP-48213</dd>
+        <dt>Upplägg</dt><dd>3 × 1 160 kr, första 28 nov</dd>
+      </dl>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Händelser</h2>
+    <ul class="timeline" id="timeline">
+      <li><div class="t">I dag · Webbchatt · AVA</div>Frågade varför fakturan är dubbelt så hög. AVA förklarade förbrukning och spotpris.</li>
+      <li id="tlPlan"><div class="t">I dag · Webbchatt · AVA</div>Fakturan delades upp på tre månader utan avgift. Bekräftelse skickad via e-post.</li>
+      <li><div class="t">I dag · Webbchatt · AVA → Energirådgivning</div>Vill byta till fastpris och undrar vad som händer om priset går ner.</li>
+      <li><div class="t">12 mars 2024 · Telefon</div>Flyttanmälan, ny mätpunkt i Drammen.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Möjliga avtal</h2>
+    <table>
+      <thead><tr><th>Avtal</th><th class="num">Pris</th><th class="num">Bindning</th><th>Passar Ingrid</th></tr></thead>
+      <tbody>
+        <tr><td><b>Fastpris Vinter 2026</b></td><td class="num">1,29 kr/kWh</td><td class="num">12 mån</td><td>Rekommenderas, förutsägbar kostnad</td></tr>
+        <tr><td>Spotpris (nuvarande)</td><td class="num">Rörligt</td><td class="num">Ingen</td><td>Höga toppar på vintern</td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+<script>
+  // Values come from the agent script's input variables (set by the inbound message flow).
+  var p = new URLSearchParams(location.search);
+  function val(key, fallback) {
+    var v = (p.get(key) || '').trim();
+    // An unset script variable can arrive empty or as the literal placeholder; fall back to demo data.
+    return (v && v.indexOf('{{') === -1) ? v : fallback;
+  }
+  var first = val('first_name', 'Ingrid');
+  var id = val('customer_id', 'FS-100234');
+  var plan = val('plan', '');
+  document.getElementById('custId').textContent = id;
+  document.getElementById('fullName').textContent = first === 'Ingrid' ? 'Ingrid Haugen' : first;
+  document.getElementById('initial').textContent = first.charAt(0).toUpperCase();
+  document.getElementById('invoice').textContent = val('invoice', 'FS-2026-10-100234');
+  document.getElementById('reason').textContent = val('reason', 'Hög faktura / byte till fastpris');
+  if (plan) {
+    document.getElementById('plan').textContent = plan;
+  } else {
+    document.getElementById('plan').textContent = '–';
+    document.getElementById('planStatus').textContent = 'Ingen betalplan';
+    document.getElementById('tlPlan').style.display = 'none';
+  }
+  var agent = val('agent', 'Marius');
+  var greeting = 'Hej ' + first + ', jag heter ' + agent + '. Jag ser att du har delat upp oktoberfakturan och vill veta mer om fastpris. Stämmer det?';
+  if (!plan) greeting = 'Hej ' + first + ', jag heter ' + agent + '. Jag ser att du vill veta mer om fastpris. Stämmer det?';
+  document.getElementById('greeting').textContent = greeting;
+  document.getElementById('copyGreeting').addEventListener('click', function () {
+    navigator.clipboard.writeText(greeting).then(function () {
+      document.getElementById('copied').textContent = 'Kopierad';
+    }, function () {
+      document.getElementById('copied').textContent = 'Markera och kopiera texten';
+    });
+  });
+</script>
+</body>
+</html>
