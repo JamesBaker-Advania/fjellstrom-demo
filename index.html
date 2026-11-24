@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Min side – Fjellstrøm Energi</title>
+<meta name="robots" content="noindex">
+<style>
+  :root {
+    --green: #0B5D4B;
+    --green-dark: #08463a;
+    --mint: #e6f2ee;
+    --ink: #1c2b27;
+    --muted: #5f6f6a;
+    --line: #dde5e2;
+    --bg: #f6f8f7;
+    --warn: #b4531a;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.5; }
+  header { background: var(--green); color: #fff; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 19px; letter-spacing: .2px; }
+  .logo svg { flex: none; }
+  nav { display: flex; gap: 22px; font-size: 15px; }
+  nav a { color: #d9ece6; text-decoration: none; }
+  nav a.active { color: #fff; font-weight: 600; }
+  .user { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+  .avatar { width: 32px; height: 32px; border-radius: 50%; background: #fff; color: var(--green); display: grid; place-items: center; font-weight: 700; }
+  .demo-flag { background: #fff3cd; color: #6b4e00; font-size: 13px; text-align: center; padding: 6px 12px; }
+  main { padding: 28px 0 60px; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+  .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; }
+  .card h2 { font-size: 16px; margin: 0 0 14px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .6px; }
+  .amount { font-size: 40px; font-weight: 700; margin: 0; }
+  .amount small { font-size: 18px; font-weight: 600; color: var(--muted); }
+  .meta { display: flex; gap: 24px; flex-wrap: wrap; margin: 10px 0 18px; color: var(--muted); font-size: 14px; }
+  .meta b { color: var(--ink); }
+  .badge { display: inline-block; background: #fdecdf; color: var(--warn); border-radius: 999px; padding: 2px 10px; font-size: 13px; font-weight: 600; }
+  .compare { display: grid; grid-template-columns: 90px 1fr 80px; gap: 8px 12px; align-items: center; font-size: 14px; margin-top: 6px; }
+  .track { background: var(--mint); border-radius: 6px; height: 14px; overflow: hidden; }
+  .fill { background: var(--green); height: 100%; border-radius: 6px; }
+  .fill.prev { background: #9cc7bb; }
+  .right { text-align: right; font-variant-numeric: tabular-nums; }
+  .btns { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+  .btn { border: 1px solid var(--green); background: var(--green); color: #fff; padding: 10px 16px; border-radius: 8px; font-size: 15px; cursor: pointer; }
+  .btn.ghost { background: #fff; color: var(--green); }
+  dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 14px; font-size: 14px; }
+  dt { color: var(--muted); }
+  dd { margin: 0; font-weight: 600; }
+  .stack { display: grid; gap: 20px; }
+  .help { background: var(--mint); border-color: #cfe5dd; }
+  .help p { margin: 0 0 12px; font-size: 15px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  footer { color: var(--muted); font-size: 13px; text-align: center; padding: 30px 20px; }
+  .presenter { position: fixed; left: 16px; bottom: 16px; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 12px; color: var(--muted); box-shadow: 0 2px 10px rgba(0,0,0,.06); max-width: 260px; }
+  .presenter button { font-size: 12px; padding: 4px 8px; margin-top: 6px; cursor: pointer; }
+  @media (max-width: 820px) {
+    .grid { grid-template-columns: 1fr; }
+    nav { display: none; }
+    .presenter { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="demo-flag">Demosida för CX Forum. Fjellstrøm Energi är ett påhittat bolag och alla uppgifter är fiktiva.</div>
+<header>
+  <div class="wrap bar">
+    <div class="logo">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+        <path d="M2 24 L11 10 L16 17 L20 12 L28 24 Z" fill="#fff"/>
+        <path d="M17.5 3 L13 13 H17 L14.5 21 L21 10 H17 L19.5 3 Z" fill="#f5c542"/>
+      </svg>
+      Fjellstrøm Energi
+    </div>
+    <nav>
+      <a class="active" href="#">Oversikt</a>
+      <a href="#">Fakturaer</a>
+      <a href="#">Forbruk</a>
+      <a href="#">Avtale</a>
+    </nav>
+    <div class="user"><span id="userName">Ingrid Haugen</span><div class="avatar" id="userInitial">I</div></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1 id="greeting">Hei, Ingrid</h1>
+  <p class="sub">Kundenummer <span id="custId">FS-100234</span> · Villa, Drammen · Spotpris</p>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Siste faktura – oktober 2026</h2>
+      <p class="amount">3 480 <small>kr</small></p>
+      <div class="meta">
+        <span>Forfall <b>28. november</b></span>
+        <span>Fakturanr <b>FS-2026-10-100234</b></span>
+        <span class="badge">Ubetalt</span>
+      </div>
+      <div class="compare">
+        <span>Oktober</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="right">3 480 kr</span>
+        <span>September</span><div class="track"><div class="fill prev" style="width:49%"></div></div><span class="right">1 720 kr</span>
+      </div>
+      <div class="btns">
+        <button class="btn" type="button">Betal nå</button>
+        <button class="btn ghost" type="button">Se faktura (PDF)</button>
+      </div>
+    </section>
+
+    <div class="stack">
+      <section class="card help">
+        <h2>Spørsmål om fakturaen?</h2>
+        <p>Vår digitale assistent kan forklare fakturaen og dele den opp, rett her i chatten.</p>
+        <button class="btn" type="button" id="openChat">Chat med oss</button>
+      </section>
+      <section class="card">
+        <h2>Ditt avtale</h2>
+        <dl>
+          <dt>Avtale</dt><dd>Spotpris</dd>
+          <dt>Årsforbruk</dt><dd>ca. 16 000 kWh</dd>
+          <dt>Kunde siden</dt><dd>2019</dd>
+        </dl>
+      </section>
+    </div>
+  </div>
+
+  <section class="card" style="margin-top:20px">
+    <h2>Forbruk siste måneder</h2>
+    <table>
+      <thead><tr><th>Måned</th><th class="num">kWh</th><th class="num">Snittpris spot</th><th class="num">Snitt temp.</th></tr></thead>
+      <tbody>
+        <tr><td>Oktober 2026</td><td class="num">1 449</td><td class="num">148 øre</td><td class="num">2,1 °C</td></tr>
+        <tr><td>September 2026</td><td class="num">1 050</td><td class="num">96 øre</td><td class="num">9,4 °C</td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<footer>Fjellstrøm Energi AS · Fiktivt selskap for demo · Ikke en ekte tjeneste</footer>
+
+<div class="presenter" id="presenter">
+  <div id="modeLabel"></div>
+  <button type="button" id="toggleMode"></button>
+  <button type="button" id="resetChat">Ny demo-chat</button>
+</div>
+
+<!-- Genesys Cloud Web Messenger: deployment "Fjellstrøm Energi Demo" (prod-euc1) -->
+<script type="text/javascript" charset="utf-8">
+  (function (g, e, n, es, ys) {
+    g['_genesysJs'] = e;
+    g[e] = g[e] || function () { (g[e].q = g[e].q || []).push(arguments) };
+    g[e].t = 1 * new Date();
+    g[e].c = es;
+    ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
+  })(window, 'Genesys', 'https://apps.mypurecloud.de/genesys-bootstrap/genesys.min.js', {
+    environment: 'prod-euc1',
+    deploymentId: '847dcad8-e98f-4edc-933b-bed37c858022'
+  });
+</script>
+
+<script>
+  // Demo customer. Add ?guest to the URL to show the page as a customer who is not logged in.
+  var CUSTOMER = { customer_id: 'FS-100234', customer_first_name: 'Ingrid' };
+  var guest = new URLSearchParams(location.search).has('guest');
+
+  if (guest) {
+    document.getElementById('greeting').textContent = 'Velkommen til Fjellstrøm Energi';
+    document.getElementById('userName').textContent = 'Ikke innlogget';
+    document.getElementById('userInitial').textContent = '?';
+    document.getElementById('custId').textContent = '–';
+  } else {
+    // Sent to Genesys as custom attributes. The inbound message flow reads them with
+    // Get Participant Data and passes them to the AVA as start context.
+    Genesys('command', 'Database.set', { messaging: { customAttributes: CUSTOMER } });
+  }
+
+  document.getElementById('openChat').addEventListener('click', function () {
+    Genesys('command', 'Messenger.open');
+  });
+
+  // Presenter helpers (bottom left, hidden on small screens)
+  document.getElementById('modeLabel').textContent = guest ? 'Läge: ej inloggad kund' : 'Läge: inloggad som Ingrid (FS-100234)';
+  var toggle = document.getElementById('toggleMode');
+  toggle.textContent = guest ? 'Visa som Ingrid' : 'Visa som gäst';
+  toggle.addEventListener('click', function () {
+    location.search = guest ? '' : '?guest';
+  });
+  document.getElementById('resetChat').addEventListener('click', function () {
+    // Ends the current conversation and clears the stored Messenger session in this browser,
+    // so the next chat starts fresh with the AVA greeting.
+    var done = false;
+    function wipe() {
+      if (done) return; done = true;
+      try { localStorage.clear(); sessionStorage.clear(); } catch (e) {}
+      location.reload();
+    }
+    Genesys('command', 'MessagingService.clearConversation', {}, wipe, wipe);
+    setTimeout(wipe, 2500);
+  });
+</script>
+</body>
+</html>
